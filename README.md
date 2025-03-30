@@ -2,6 +2,46 @@
 
 This folder contains an example controller built with [multicluster-runtime](https://github.com/kubernetes-sigs/multicluster-runtime). Commits in this repository showcase the ability to replace the multi-cluster provider implementation with small adjustments.
 
+## Using the `kind` Provider
+
+The `kind` provider picks up local clusters created via [kind](https://kind.sigs.k8s.io/) as long as their name starts with a `fleet-` prefix. To test this provider, simply create multiple kind clusters with this name prefix:
+
+```sh
+$ kind create cluster --name=fleet-cluster-1
+using nerdctl due to KIND_EXPERIMENTAL_PROVIDER
+Creating cluster "fleet-cluster-1" ...
+ ✓ Ensuring node image (kindest/node:v1.32.2) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-fleet-cluster-1"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-fleet-cluster-1
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+
+$ kind create cluster --name=fleet-cluster-2
+using nerdctl due to KIND_EXPERIMENTAL_PROVIDER
+Creating cluster "fleet-cluster-2" ...
+ ✓ Ensuring node image (kindest/node:v1.32.2) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
+Set kubectl context to "kind-fleet-cluster-2"
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-fleet-cluster-2
+
+Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+```
+
+And then run `go run .` to start the controller.
+
 ## Using the `kcp` Provider
 
 It can be tested by applying the necessary manifests from the respective folder while connected to the `root` workspace of a kcp instance:
