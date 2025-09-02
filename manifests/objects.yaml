@@ -30,7 +30,6 @@ metadata:
 spec:
   defaultAPIBindings:
   - export: examples-apiexport-multicluster
-    path: root
   defaultChildWorkspaceType:
     name: universal
     path: root
@@ -46,7 +45,6 @@ metadata:
 spec:
   type:
     name: examples-apiexport-multicluster
-    path: root
 ---
 apiVersion: tenancy.kcp.io/v1alpha1
 kind: Workspace
@@ -55,7 +53,6 @@ metadata:
 spec:
   type:
     name: examples-apiexport-multicluster
-    path: root
 ---
 apiVersion: tenancy.kcp.io/v1alpha1
 kind: Workspace
@@ -64,5 +61,4 @@ metadata:
 spec:
   type:
     name: examples-apiexport-multicluster
-    path: root
 

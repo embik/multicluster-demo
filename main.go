@@ -22,11 +22,11 @@ import (
 	"github.com/spf13/pflag"
 
 	mcmanager "sigs.k8s.io/multicluster-runtime/pkg/manager"
-	"sigs.k8s.io/multicluster-runtime/providers/kind"
 
 	apisv1alpha1 "github.com/kcp-dev/kcp/sdk/apis/apis/v1alpha1"
 	corev1alpha1 "github.com/kcp-dev/kcp/sdk/apis/core/v1alpha1"
 	tenancyv1alpha1 "github.com/kcp-dev/kcp/sdk/apis/tenancy/v1alpha1"
+	"github.com/kcp-dev/multicluster-provider/apiexport"
 
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/kubernetes/scheme"
@@ -70,7 +70,11 @@ func main() {
 	entryLog.Info("Setting up manager")
 	opts := manager.Options{}
 
-	provider := kind.New()
+	provider, err := apiexport.New(cfg, apiexport.Options{})
+	if err != nil {
+		entryLog.Error(err, "unable to create provider")
+		os.Exit(1)
+	}
 
 	mgr, err := mcmanager.New(cfg, provider, opts)
 	if err != nil {
